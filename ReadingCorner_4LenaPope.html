@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reading Corner Mini‑Game Pack – For Lena Pope by CultureCare.Online</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    h2 {
+        margin-top: 40px;
+        color: #444;
+    }
+
+    .game-section {
+        margin-top: 30px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Shared styles */
+    .flex-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background: #4CAF50;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    /* GAME 1 — MATCHING */
+    .word, .picture {
+        padding: 15px;
+        border-radius: 10px;
+        cursor: grab;
+        font-size: 22px;
+        font-weight: bold;
+        user-select: none;
+    }
+
+    .word {
+        background: #ffe9b3;
+        border: 3px solid #ffb347;
+    }
+
+    .picture {
+        background: white;
+        border: 3px dashed #999;
+        width: 160px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .correct {
+        border-color: #4CAF50 !important;
+        background: #d4ffd4 !important;
+    }
+
+    /* GAME 2 — SHUFFLE */
+    .panel {
+        width: 160px;
+        padding: 20px;
+        background: #e0f0ff;
+        border: 3px solid #4a90e2;
+        border-radius: 10px;
+        font-size: 24px;
+        cursor: grab;
+    }
+
+    .dropzone {
+        width: 160px;
+        height: 80px;
+        border: 3px dashed #aaa;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filled {
+        background: #d4ffd4;
+        border-color: #4CAF50;
+    }
+
+    /* GAME 3 — TOGGLE */
+    .toggle-card {
+        width: 180px;
+        height: 120px;
+        background: #ddd;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .revealed {
+        background: #fff7c2;
+        border: 3px solid #ffcc00;
+    }
+
+    .affirmation {
+        margin-top: 20px;
+        font-size: 22px;
+        color: #4CAF50;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<h1>Reading Corner Mini‑Game Pack</h1>
+<div>For Lena Pope by <strong>CultureCare.Online</strong></div>
+
+<!-- GAME 1 -->
+<div class="game-section">
+    <h2>Game 1: Match the Words!</h2>
+    <p>Drag each word to the picture that matches it.</p>
+
+    <div class="flex-row">
+        <div class="word" draggable="true" data-match="do">DO</div>
+        <div class="word" draggable="true" data-match="you">YOU</div>
+        <div class="word" draggable="true" data-match="like">LIKE</div>
+        <div class="word" draggable="true" data-match="to">TO</div>
+        <div class="word" draggable="true" data-match="read">READ</div>
+    </div>
+
+    <div class="flex-row">
+        <div class="picture" data-match="do">📘</div>
+        <div class="picture" data-match="you">👍</div>
+        <div class="picture" data-match="like">❤️</div>
+        <div class="picture" data-match="to">➡️</div>
+        <div class="picture" data-match="read">🐉📚</div>
+    </div>
+
+    <div id="match-success" style="display:none; margin-top:20px; font-size:22px; color:#4CAF50;">
+        Great job! You matched them all!
+    </div>
+</div>
+
+<!-- GAME 2 -->
+<div class="game-section">
+    <h2>Game 2: Build the Banner!</h2>
+    <p>Drag the panels into the correct order.</p>
+
+    <div class="flex-row" id="shuffle-panels">
+        <div class="panel" draggable="true" data-panel="DO">DO</div>
+        <div class="panel" draggable="true" data-panel="YOU">YOU</div>
+        <div class="panel" draggable="true" data-panel="LIKE">LIKE</div>
+        <div class="panel" draggable="true" data-panel="TO">TO</div>
+        <div class="panel" draggable="true" data-panel="READ">READ</div>
+    </div>
+
+    <div class="flex-row">
+        <div class="dropzone" data-slot="DO"></div>
+        <div class="dropzone" data-slot="YOU"></div>
+        <div class="dropzone" data-slot="LIKE"></div>
+        <div class="dropzone" data-slot="TO"></div>
+        <div class="dropzone" data-slot="READ"></div>
+    </div>
+
+    <div id="order-success" style="display:none; margin-top:20px; font-size:22px; color:#4CAF50;">
+        You built the banner!
+    </div>
+</div>
+
+<!-- GAME 3 -->
+<div class="game-section">
+    <h2>Game 3: Tap to Reveal!</h2>
+    <p>Tap each card to reveal a surprise.</p>
+
+    <div class="flex-row">
+        <div class="toggle-card" data-word="DO">?</div>
+        <div class="toggle-card" data-word="YOU">?</div>
+        <div class="toggle-card" data-word="LIKE">?</div>
+        <div class="toggle-card" data-word="TO">?</div>
+        <div class="toggle-card" data-word="READ">?</div>
+    </div>
+
+    <div class="affirmation" id="affirmation-box">
+        Reading is a shared act of care.
+    </div>
+</div>
+
+<script>
+/* GAME 1 — MATCHING */
+let matchCount = 0;
+document.querySelectorAll('.word').forEach(word => {
+    word.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', word.dataset.match);
+    });
+});
+
+document.querySelectorAll('.picture').forEach(pic => {
+    pic.addEventListener('dragover', e => e.preventDefault());
+    pic.addEventListener('drop', e => {
+        const dragged = e.dataTransfer.getData('text/plain');
+        if (dragged === pic.dataset.match && !pic.classList.contains('correct')) {
+            pic.classList.add('correct');
+            pic.textContent = "✔️";
+            matchCount++;
+            if (matchCount === 5) {
+                document.getElementById('match-success').style.display = 'block';
+            }
+        }
+    });
+});
+
+/* GAME 2 — ORDERING */
+let orderCount = 0;
+document.querySelectorAll('.panel').forEach(panel => {
+    panel.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', panel.dataset.panel);
+    });
+});
+
+document.querySelectorAll('.dropzone').forEach(zone => {
+    zone.addEventListener('dragover', e => e.preventDefault());
+    zone.addEventListener('drop', e => {
+        const dragged = e.dataTransfer.getData('text/plain');
+        if (dragged === zone.dataset.slot && !zone.classList.contains('filled')) {
+            zone.classList.add('filled');
+            zone.textContent = dragged;
+            orderCount++;
+            if (orderCount === 5) {
+                document.getElementById('order-success').style.display = 'block';
+            }
+        }
+    });
+});
+
+/* GAME 3 — TOGGLE */
+document.querySelectorAll('.toggle-card').forEach(card => {
+    card.addEventListener('click', () => {
+        card.classList.add('revealed');
+        card.textContent = card.dataset.word;
+        document.getElementById('affirmation-box').style.display = 'block';
+    });
+});
+</script>
+
+</body>
+</html>
